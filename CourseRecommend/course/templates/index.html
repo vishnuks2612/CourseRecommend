@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Recommendation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('background.jpg'); /* Set your background image here */
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-family: 'Your Desired Font', sans-serif; /* Change 'Your Desired Font' to the desired font family */
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.5s ease-in-out;
+        }
+
+        .clear-button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .clear-button:hover {
+            background-color: #45a049;
+        }
+
+        /* ... Rest of your CSS ... */
+    </style>
+</head>
+<body>
+    <h1>Course Recommendation</h1>
+
+    <!-- ... Rest of your HTML ... -->
+    <form method="post" action="{% url 'course_recommendation' %}" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <label for="organization">Organization:</label>
+        <input type="text" name="organization" id="organization" required>
+        <br>
+        <label for="certificate_type">Certificate Type:</label>
+        <input type="text" name="certificate_type" id="certificate_type" required>
+        <br>
+        <label for="difficulty">Difficulty:</label>
+        <input type="text" name="difficulty" id="difficulty" required>
+        <br>
+        <input type="submit" value="Get Recommendations">
+    </form>
+
+    {% if recommended_courses %}
+    <h2>Recommended Courses:</h2>
+    <ul>
+        {% for course in recommended_courses %}
+            <li>{{ course }}</li>
+        {% endfor %}
+    </ul>
+    <button class="clear-button" onclick="clearRecommendations()">Clear Recommendations</button>
+    {% endif %}
+
+    <script>
+        function validateForm() {
+            var organization = document.getElementById("organization").value;
+            var certificateType = document.getElementById("certificate_type").value;
+            var difficulty = document.getElementById("difficulty").value;
+
+            var organizationPattern = /^[A-Za-z\s]+$/;
+            var certificateTypePattern = /^[A-Za-z\s]+$/;
+            var difficultyPattern = /^[A-Za-z\s]+$/;
+
+            if (!organization.match(organizationPattern)) {
+                alert("Please enter a valid organization name.");
+                return false;
+            }
+
+            if (!certificateType.match(certificateTypePattern)) {
+                alert("Please enter a valid certificate type.");
+                return false;
+            }
+
+            if (!difficulty.match(difficultyPattern)) {
+                alert("Please enter a valid difficulty level.");
+                return false;
+            }
+
+            return true;
+        }
+
+        function clearRecommendations() {
+            var recommendedCoursesList = document.querySelector("ul");
+            recommendedCoursesList.innerHTML = "";
+        }
+    </script>
+
+
+</body>
+</html>
