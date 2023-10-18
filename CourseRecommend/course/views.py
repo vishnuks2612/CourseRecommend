@@ -9,8 +9,8 @@ import pandas as pd
 import joblib
 
 # Load the dataset and pre-trained model
-course_similarity_matrix_train = joblib.load('ubuntu@ip-172-31-40-157:~/CourseRecommend/CourseRecommend$')
-# course_similarity_matrix_train = joblib.load('C:\\Users\\Galaxy\\PycharmProjects\\pythonProject\\CourseRecommend\\NoteBook\\course_recommendation')
+# course_similarity_matrix_train = joblib.load('ubuntu@ip-172-31-40-157:~/CourseRecommend/CourseRecommend$')
+course_similarity_matrix_train = joblib.load('C:\\Users\\Galaxy\\PycharmProjects\\pythonProject\\CourseRecommend\\NoteBook\\course_recommendation')
 ## Update the column names in text_attributes
 text_attributes = ['course_organization', 'course_Certificate_type', 'course_difficulty']
 
